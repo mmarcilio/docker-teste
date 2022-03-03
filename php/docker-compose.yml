@@ -1,0 +1,19 @@
+php:
+  build: ./Dockerfile
+  ports:
+    - "80:80"
+  volumes:
+    - ./www:/var/www/html
+  links: 
+    - db, apache  
+
+db:
+    image: mysql
+    command: --default-authentication-plugin=mysql_native_password
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD:root
+apache:
+    build: ./Dockerfile
+    ports:
+      - "8080:80"
